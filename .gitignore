@@ -1,0 +1,35 @@
+*
+!.gitignore
+
+################
+# spare files
+################
+!.bash_profile
+!.gitconfig
+!.aliases
+!README.md
+
+################
+# emacs stuff
+################
+!.emacs
+!.emacs.d/
+!.emacs.d/plugins/
+!.emacs.d/plugins/elscreen.el
+ 
+###############
+# script stuff
+###############
+!bin/
+!bin/batteryInfo
+!bin/snumber
+!bin/brewrm
+!.scripts/
+!.scripts/macSetup.sh
+!.scripts/geek.sh
+
+###############
+!.zshrc
+!.warprc
+!.tmux.conf
+###############

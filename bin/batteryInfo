@@ -1,0 +1,110 @@
+#!/bin/bash
+# This script lets you print some info about your battery.
+
+IOREG="/usr/sbin/ioreg"
+
+AMP_LABEL="Amperage"
+FLAGS_LABEL="Flags"
+CAP_LABEL="Capacity"
+CURR_LABEL="Current"
+VOLT_LABEL="Voltage"
+CYC_LABEL="CycleCount"
+
+# Check for ioreg availability
+if [ ! -x $IOREG ]; then
+    echo "battery: cannot execute $IOREG"
+    exit 1;
+fi
+
+print_amperage() {
+    AMPERAGE=`echo $line | sed -e s/.*$AMP_LABEL=//g | sed 's/\,.*//g'`
+    echo "${AMP_LABEL}:   $(tput setaf 27)$AMPERAGE$(tput sgr0)"
+    return
+}
+
+print_flags() {
+    FLAGS=`echo $line | sed -e s/.*$FLAGS_LABEL=//g | sed 's/\,.*//g'`
+    echo "${FLAGS_LABEL}:      $(tput setaf 27)$FLAGS$(tput sgr0)"
+    return
+}
+
+print_capacity() {
+    CAPACITY=`echo $line | sed -e s/.*$CAP_LABEL=//g | sed 's/\,.*//g'`
+    echo "${CAP_LABEL}:   $(tput setaf 27)$CAPACITY$(tput sgr0)"
+    return
+}
+
+print_current() {
+    CURRENT=`echo $line | sed -e s/.*$CURR_LABEL=//g | sed 's/\,.*//g'`
+    echo "${CURR_LABEL}:    $(tput setaf 27)$CURRENT$(tput sgr0)"
+    return
+}
+
+print_voltage() {
+    VOLTAGE=`echo $line | sed -e s/.*$VOLT_LABEL=//g | sed 's/\,.*//g'`
+    echo "${VOLT_LABEL}:    $(tput setaf 27)$VOLTAGE$(tput sgr0)"
+    return
+}
+
+print_cycles() {
+    CYCLECOUNT=`echo $line | sed -e s/.*$CycleCount=//g | sed 's/\}.*//g'`
+    echo "${CYC_LABEL}: $(tput setaf 27)$CYCLECOUNT$(tput sgr0)"
+    return
+}
+
+ioreg -l | echo `grep "BatteryInfo\" ="` | {
+    read line
+    line=`echo ${line} | sed 's/Cycle Count/CycleCount/g'`
+    line=`echo ${line} | sed 's/\"//g'`
+
+    # batteryInfo called without any argument: print comlete info list
+    if [ $# -eq 0 ]; then
+        print_amperage
+        print_flags
+        print_capacity
+        print_current
+        print_voltage
+        print_cycles
+        exit 0
+    # batteryInfo called with some arguments
+    else
+        for arg in "$@"
+        do
+            case "$arg" in
+                "-a" | "--amperage")
+                    print_amperage
+                    ;;
+                "-f" | "--flags")
+                    print_flags
+                    ;;
+                "-c" | "--capacity")
+                    print_capacity
+                    ;;
+                "-C" | "--current")
+                    print_current
+                    ;;
+                "-v" | "--voltage")
+                    print_voltage
+                    ;;
+                "-l" | "--cyclecount")
+                    print_cycles
+                    ;;
+                "-h" | "--help")
+                    echo "usage:"
+                    echo "     battery [-arg]"
+                    echo "              -a --amperage      : show battery amperage"
+                    echo "              -f --flags         : show battery flags"
+                    echo "              -c --capacity      : show battery capacity"
+                    echo "              -C --current       : show battery current"
+                    echo "              -v --voltage       : show battery voltage"
+                    echo "              -l --cyclecount    : show battery cycle count"
+                    ;;
+                *)
+                    echo "$arg: invalid option"
+                    ;;
+            esac
+        done
+        exit 0
+    fi
+}
+

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+BREW="/usr/local/bin/brew"
+
+# check for brew availability
+if [ ! -x $BREW ]; then
+    echo "brew: cannot execute $BREW"
+    exit 1;
+fi
+
+if [ $# -eq 0 ]; then
+    echo "usage:"
+    echo "     brewrm FORMULA"
+else
+    for arg in "$@"
+    do
+        brew rm $arg
+        brew rm $(join <(brew leaves) <(brew deps $arg))
+    done
+    exit 0
+fi

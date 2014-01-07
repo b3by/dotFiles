@@ -1,0 +1,18 @@
+###########################
+# Some aliases            #
+###########################
+alias ..='cd ..'
+alias ...='cd ../..'
+alias 'grep'='grep --color=auto'
+alias 'ls'='ls -G'
+alias la='ls -la'
+alias amacs='open -a /Applications/Emacs.app'
+alias rmall='rm -r'
+alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip'
+alias herokupush='git push heroku master'
+alias batteryCycles='batteryInfo -l'
+alias deepErase='diskutil secureErase freespace 3 /Volumes/System/'
+alias countFiles='for f in */; do count=$(find "$f" -type f -print | wc -l); echo $f $count; done'
+alias rainbow='yes "$(seq 231 -1 16)" | while read i; do printf "\x1b[48;5;${i}m\n"; sleep .02; done'
+alias localscan='sudo arp-scan --interface=en0 --localnet'
+###########################

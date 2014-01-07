@@ -1,0 +1,57 @@
+#!/bin/bash
+
+IOREG="/usr/sbin/ioreg"
+
+MAC_SERIAL_LABEL="Mac serial number"
+BAT_SERIAL_LABEL="Battery serial number"
+
+#Check for ioreg availability
+if [ ! -x $IOREG ]; then
+    echo "snumber: cannot execute $IOREG"
+    exit 1;
+fi
+
+print_mac_serial() {
+    MAC_SERIAL=`ioreg -l | grep IOPlatformSerialNumber | sed -e s/.*$CycleCount=//g | sed 's/\}.*//g' | sed 's/.*"\(.*\)"[^"]*$/\1/'`
+    echo "${MAC_SERIAL_LABEL}:     $(tput setaf 27)$MAC_SERIAL$(tput sgr0)"
+    return
+}
+
+print_bat_serial() {
+    BAT_SERIAL=`ioreg -l | grep BatterySerialNumber | sed -e s/.*$CycleCount=//g | sed 's/\}.*//g' | sed 's/.*"\(.*\)"[^"]*$/\1/'`
+    echo "${BAT_SERIAL_LABEL}: $(tput setaf 27)$BAT_SERIAL$(tput sgr0)"
+    return
+}
+
+if [ $# -eq 0 ]; then
+    print_mac_serial
+    print_bat_serial
+    exit 0
+else
+    for arg in "$@"
+    do
+        case "$arg" in
+            "-a" | "--all")
+                print_mac_serial
+                print_bat_serial
+                ;;
+            "-b" | "--battery")
+                print_bat_serial
+                ;;
+            "-m" | "--mac")
+                print_mac_serial
+                ;;
+            "-h" | "--help")
+                echo "usage"
+                echo "     snumber [-arg]"
+                echo "               -a --all      : show mac and battery serials (default)"
+                echo "               -b --battery  : show battery serial number"
+                echo "               -m --mac      : show mac serial number"
+                ;;
+            *)
+                echo "$arg: invalid option"
+                ;;
+        esac
+    done
+    exit 0
+fi
