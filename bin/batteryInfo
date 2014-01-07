@@ -3,6 +3,7 @@
 
 IOREG="/usr/sbin/ioreg"
 
+PERC_LABEL="Percentage"
 AMP_LABEL="Amperage"
 FLAGS_LABEL="Flags"
 CAP_LABEL="Capacity"
@@ -15,6 +16,11 @@ if [ ! -x $IOREG ]; then
     echo "battery: cannot execute $IOREG"
     exit 1;
 fi
+
+print_percentage() {
+		PERCENTAGE=`pmset -g batt | awk 'NR==2 { if ($3 ~ /^cha/) print $3 $2; else print $2; }' | sed s/\;/\ /g`
+		echo "${PERC_LABEL}: $(tput setaf 27)$PERCENTAGE$(tput sgr0)"
+}
 
 print_amperage() {
     AMPERAGE=`echo $line | sed -e s/.*$AMP_LABEL=//g | sed 's/\,.*//g'`
@@ -64,6 +70,7 @@ ioreg -l | echo `grep "BatteryInfo\" ="` | {
         print_capacity
         print_current
         print_voltage
+				print_percentage
         print_cycles
         exit 0
     # batteryInfo called with some arguments
@@ -86,9 +93,15 @@ ioreg -l | echo `grep "BatteryInfo\" ="` | {
                 "-v" | "--voltage")
                     print_voltage
                     ;;
+								"-p" | "--percentage")
+										print_percentage
+										;;
                 "-l" | "--cyclecount")
                     print_cycles
                     ;;
+								"-s" | "--script")
+										pmset -g batt | awk 'NR==2 { if ($3 ~ /^cha/) print $3 $2; else print $2; }' | sed s/\;/\ /g
+										;;
                 "-h" | "--help")
                     echo "usage:"
                     echo "     battery [-arg]"
@@ -97,7 +110,9 @@ ioreg -l | echo `grep "BatteryInfo\" ="` | {
                     echo "              -c --capacity      : show battery capacity"
                     echo "              -C --current       : show battery current"
                     echo "              -v --voltage       : show battery voltage"
+										echo "              -p --percentage    : show battery percentage"
                     echo "              -l --cyclecount    : show battery cycle count"
+										echo "              -s --script        : show exclusively battery percentage"
                     ;;
                 *)
                     echo "$arg: invalid option"
