@@ -3,9 +3,9 @@ dotFiles
 
 This repository contains some dot files I use on my box.
 
-* `.emacs`: emacs configuration file. It's quite dirty, still it makes the job done.
+* `.emacs`: emacs configuration file. It's quite dirty, still it makes the job done
 
-* `.aliases`: easy to understand.
+* `.aliases`: easy to understand
 
 * `bin/`: a few binaries added to my path
   * `batteryInfo`: information about battery
@@ -15,3 +15,9 @@ This repository contains some dot files I use on my box.
 * `.scripts/`: some utility scripts
   * `macSetup.sh`: it helps me configuring my mac after a clean install
   * `geek.sh`: my GeekTool configuration file
+
+* `.zsh`: configuration file for zsh
+
+* `.warprc`: labels for zsh wd plugin
+
+* `.tmux.conf`: tmux stuff

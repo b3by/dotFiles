@@ -133,6 +133,7 @@ print_drives() {
 print_mail() {
 		
 		USERNAME="b3by.in.th3.sky@gmail.com"
+		PASSWORD=`security 2>&1 find-generic-password -g -a gmail | grep password | awk -F '"' '{print $2}'`
 				
 		EMAIL=`curl -u $USERNAME:$PASSWORD --silent "https://mail.google.com/mail/feed/atom" | tr -d '\n' | awk -F '<entry>' '{for (i=2; i<=NF; i++) {print $i}}' | sed -n "s/<title>\(.*\)<\/title.*name>\(.*\)<\/name>.*/\2 - \1/p"`
  
