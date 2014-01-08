@@ -20,11 +20,11 @@ under="\033[4m"
 nounder="\033[0m"
 
 print_uptime() {
-		if [ $# -eq 0 ]; then
-				echo -e "${bluecolor}`uptime | sed -E 's/^.{10}//' | sed -E 's/, [0-9][0-9]? user(s)?,.*//g'`${nocolor}"
-		else
-				echo -e "☕ uptime is ${bluecolor}`uptime | sed -E 's/^.{10}//' | sed -E 's/, [0-9][0-9]? user(s)?,.*//g'`${nocolor}"
-		fi
+    if [ $# -eq 0 ]; then
+        echo -e "${bluecolor}`uptime | sed -E 's/^.{10}//' | sed -E 's/, [0-9][0-9]? user(s)?,.*//g'`${nocolor}"
+    else
+        echo -e "☕ uptime is ${bluecolor}`uptime | sed -E 's/^.{10}//' | sed -E 's/, [0-9][0-9]? user(s)?,.*//g'`${nocolor}"
+    fi
 }
 
 print_battery() {
@@ -33,23 +33,23 @@ print_battery() {
     else
         ioreg -l | echo `grep "BatteryInfo\" ="` | {
             read line
-	          CYCLECOUNT=`echo $line | sed -e s/.*$CycleCount=//g -e s/\}.*//g`
-						if [ $# -eq 0 ]; then
-								echo -e "${bluecolor}$CYCLECOUNT${nocolor}"
-						else
-								echo -e "🍺 battery is ${bluecolor}$CYCLECOUNT${nocolor} cycles old"
-						fi
+            CYCLECOUNT=`echo $line | sed -e s/.*$CycleCount=//g -e s/\}.*//g`
+            if [ $# -eq 0 ]; then
+                echo -e "${bluecolor}$CYCLECOUNT${nocolor}"
+            else
+                echo -e "🍺 battery is ${bluecolor}$CYCLECOUNT${nocolor} cycles old"
+            fi
         }
     fi
 }
 
 print_weather() {
     WEATHER=`curl --silent "http://xml.weather.yahoo.com/forecastrss?p=ITXX0052&u=c" | grep -E '(Current Conditions:|C<BR)' | tail -n 1 | sed '$s/......$//' | tr '[A-Z]' '[a-z]'`
-		if [ $# -eq 0 ]; then
-				echo -e "$WEATHER"
-		else
-				echo -e "🔆 weather in Naples: $WEATHER"
-		fi
+    if [ $# -eq 0 ]; then
+        echo -e "$WEATHER"
+    else
+        echo -e "🔆 weather in Naples: $WEATHER"
+    fi
 }
 
 print_ethernet_info() {
@@ -93,67 +93,67 @@ print_external_address() {
 
 print_df_numbers() {
     df -h / | grep "/dev/" | awk '{print "on /       \033[32m" $4"\033[00m are free (~"(100-$5)"%)"}'
-		df -h /Users | grep "Users" | awk '{print "on " $9" \033[32m"$4 "\033[00m are free (~"(100-$5)"%)"}'
+    df -h /Users | grep "Users" | awk '{print "on " $9" \033[32m"$4 "\033[00m are free (~"(100-$5)"%)"}'
 }
 
 print_git_status() {
     cd /Users/b3by/;
-		GITFOLDER=.git/
-		if [ ! -x $GITFOLDER ]; then
-				echo -e "(home ${bluecolor}repo${nocolor}) git repo ${redcolor}not set!${nocolor}"
-		else
-				GITSTATUS=`git status | egrep 'modified|new' | grep -v finder.plist`
-				GITBRANCH=`git branch | awk '{print $2}'`
-				if [ -n "$GITSTATUS" ]; then
-						echo -e "(home ${bluecolor}repo${nocolor}) ${redcolor}to commit${nocolor} on ${gaycolor}$GITBRANCH${nocolor}"
-						echo "$GITSTATUS"
-				else
-						echo -e "(home ${bluecolor}repo${nocolor}) ${gaycolor}$GITBRANCH${nocolor} ${greencolor}clean${nocolor}"
-				fi
-		fi
+    GITFOLDER=.git/
+    if [ ! -x $GITFOLDER ]; then
+        echo -e "(home ${bluecolor}repo${nocolor}) git repo ${redcolor}not set!${nocolor}"
+    else
+        GITSTATUS=`git status | egrep 'modified|new' | grep -v finder.plist`
+        GITBRANCH=`git branch | awk '{print $2}'`
+        if [ -n "$GITSTATUS" ]; then
+            echo -e "(home ${bluecolor}repo${nocolor}) ${redcolor}to commit${nocolor} on ${gaycolor}$GITBRANCH${nocolor}"
+            echo "$GITSTATUS"
+        else
+            echo -e "(home ${bluecolor}repo${nocolor}) ${gaycolor}$GITBRANCH${nocolor} ${greencolor}clean${nocolor}"
+        fi
+    fi
 }
 
 print_brew_status() {
-		if [ ! -x $BREW ]; then
-				echo -e "(home ${bluecolor}brew${nocolor}) ${redcolor}not installed!${nocolor}"
-		else
-				BREWSTATUS=`brew outdated`
-				if [ -z $BREWSTATUS ]; then
-						echo -e "(home ${bluecolor}brew${nocolor}) nothing to update"
-				else
-						echo "(home ${bluecolor}brew${nocolor}) something new"
-				fi
-		fi
+    if [ ! -x $BREW ]; then
+        echo -e "(home ${bluecolor}brew${nocolor}) ${redcolor}not installed!${nocolor}"
+    else
+        BREWSTATUS=`brew outdated`
+        if [ -z $BREWSTATUS ]; then
+            echo -e "(home ${bluecolor}brew${nocolor}) nothing to update"
+        else
+            echo "(home ${bluecolor}brew${nocolor}) something new"
+        fi
+    fi
 }
 
 print_drives() {
-		mount | grep /Volumes | awk '{printf "(home \033[34mmnts\033[00m) " substr($3, 9, 20) " mounted\n", 27 }'
+    mount | grep /Volumes | awk '{printf "(home \033[34mmnts\033[00m) " substr($3, 9, 20) " mounted\n", 27 }'
 }
 
 print_mail() {
-		
-		USERNAME="b3by.in.th3.sky@gmail.com"
-		PASSWORD=`security 2>&1 find-generic-password -g -a gmail | grep password | awk -F '"' '{print $2}'`
-				
-		EMAIL=`curl -u $USERNAME:$PASSWORD --silent "https://mail.google.com/mail/feed/atom" | tr -d '\n' | awk -F '<entry>' '{for (i=2; i<=NF; i++) {print $i}}' | sed -n "s/<title>\(.*\)<\/title.*name>\(.*\)<\/name>.*/\2 - \1/p"`
+    
+    USERNAME="b3by.in.th3.sky@gmail.com"
+    PASSWORD=`security 2>&1 find-generic-password -g -a gmail | grep password | awk -F '"' '{print $2}'`
+        
+    EMAIL=`curl -u $USERNAME:$PASSWORD --silent "https://mail.google.com/mail/feed/atom" | tr -d '\n' | awk -F '<entry>' '{for (i=2; i<=NF; i++) {print $i}}' | sed -n "s/<title>\(.*\)<\/title.*name>\(.*\)<\/name>.*/\2 - \1/p"`
  
-		if [ -n "$EMAIL" ]; then
-				NUM=`echo "$EMAIL" | wc -l | awk '{printf $1}'`
-				echo -e "(home ${bluecolor}mail${nocolor}) ${redcolor}$NUM${nocolor} new in inbox"
-				
-				IFS=$'\n'
-				for i in $EMAIL
-				do
-						len=${#i}
-						if [ "$len" -gt 24 ]; then
-								echo "      "${i:0:22}"..."
-						else
-								echo "      "$i
-						fi
-				done
-		else
-				echo -e "(home ${bluecolor}mail${nocolor}) inbox  ${greencolor}clean${nocolor}"
-		fi
+    if [ -n "$EMAIL" ]; then
+        NUM=`echo "$EMAIL" | wc -l | awk '{printf $1}'`
+        echo -e "(home ${bluecolor}mail${nocolor}) ${redcolor}$NUM${nocolor} new in inbox"
+        
+        IFS=$'\n'
+        for i in $EMAIL
+        do
+            len=${#i}
+            if [ "$len" -gt 24 ]; then
+                echo "      "${i:0:22}"..."
+            else
+                echo "      "$i
+            fi
+        done
+    else
+        echo -e "(home ${bluecolor}mail${nocolor}) inbox  ${greencolor}clean${nocolor}"
+    fi
 }
 
 echo ""
