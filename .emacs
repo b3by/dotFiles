@@ -147,7 +147,8 @@
 (icomplete-mode 99)
 
 ;; braces completion
-(autopair-global-mode t)
+;;(autopair-global-mode t)
+(electric-pair-mode 1)
 
 ;; disable backup
 (setq backup-inhibited t)
