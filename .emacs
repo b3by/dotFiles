@@ -129,7 +129,7 @@
 (set-frame-font "Anonymous Pro")
 
 ;; font size
-(set-face-attribute 'default nil :height 133)
+(set-face-attribute 'default nil :height 134)
 
 ;; show column number
 (column-number-mode 1)
@@ -147,7 +147,7 @@
 (icomplete-mode 99)
 
 ;; braces completion
-(autopair-global-mode 1)
+(autopair-global-mode t)
 
 ;; disable backup
 (setq backup-inhibited t)
