@@ -45,6 +45,25 @@
 ;; plugins path
 ;;(add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/plugins/")
+(add-to-list 'load-path "~/.emacs.d/emms/")
+
+(global-set-key (kbd "<f8>")
+                (lambda ()
+                  (interactive)
+                  (emms-play-directory-tree "./Music/")
+                  (emms-random)))
+
+(global-set-key (kbd "<f9>") 'emms-next)
+
+(global-set-key (kbd "<f7>")
+                (lambda ()
+                  (interactive)
+                  (emms-previous)))
+
+;; emms stuff
+(require 'emms-setup)
+(emms-devel)
+(emms-default-players)
 
 ;; customization from emacs, basically just trusted themes
 (custom-set-variables
@@ -173,7 +192,7 @@
 
 ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
