@@ -73,13 +73,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("f220c05492910a305f5d26414ad82bf25a321c35aa05b1565be12f253579dec6"
-     "fee4bfb5cfc4912d443840127d10b3ef64918bf510c181d7cafff4fb1510a1a2"
-     "2b7d55fde75d5636ed0d5bf33d1b06ac75162f06816abe00522692e7daddc9ec"
-     "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365"
-     "978bd4603630ecb1f01793af60beb52cb44734fc14b95c62e7b1a05f89b6c811"
-     "61d1a82d5eaafffbdd3cab1ac843da873304d1f05f66ab5a981f833a3aec3fc0"
-     "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
+    ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "f220c05492910a305f5d26414ad82bf25a321c35aa05b1565be12f253579dec6" "fee4bfb5cfc4912d443840127d10b3ef64918bf510c181d7cafff4fb1510a1a2" "2b7d55fde75d5636ed0d5bf33d1b06ac75162f06816abe00522692e7daddc9ec" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "978bd4603630ecb1f01793af60beb52cb44734fc14b95c62e7b1a05f89b6c811" "61d1a82d5eaafffbdd3cab1ac843da873304d1f05f66ab5a981f833a3aec3fc0" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -195,6 +189,20 @@
 (setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
+
+;; Enable mouse support
+(unless window-system
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (global-set-key [mouse-4] '(lambda ()
+                              (interactive)
+                              (scroll-down 1)))
+  (global-set-key [mouse-5] '(lambda ()
+                              (interactive)
+                              (scroll-up 1)))
+  (defun track-mouse (e))
+  (setq mouse-sel-mode t)
+)
 
 
 ;; dat mode!
