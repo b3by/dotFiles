@@ -92,7 +92,7 @@ print_external_address() {
 }
 
 print_df_numbers() {
-    df -h / | grep "/dev/" | awk '{print "on /       \033[32m" $4"\033[00m are free (~"(100-$5)"%)"}'
+    df -h / | grep "/dev/" | awk '{print "on /      \033[32m" $4"\033[00m are free (~"(100-$5)"%)"}'
     df -h /Users | grep "Users" | awk '{print "on " $9" \033[32m"$4 "\033[00m are free (~"(100-$5)"%)"}'
 }
 
