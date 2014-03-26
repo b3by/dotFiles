@@ -18,6 +18,4 @@ This repository contains some dot files I use on my box.
 
 * `.zsh`: configuration file for zsh
 
-* `.warprc`: labels for zsh wd plugin
-
 * `.tmux.conf`: tmux stuff
