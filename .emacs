@@ -31,6 +31,7 @@
                      pretty-lambdada
                      pretty-symbols
                      pretty-mode
+                     blank-mode
                      ))
 
 ;; fetch list
