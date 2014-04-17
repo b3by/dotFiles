@@ -40,7 +40,7 @@ ZSH=$HOME/.oh-my-zsh
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git wd encode64 urlencode web-search osx last-working-dir)
+plugins=(git wd encode64 urlencode web-search osx last-working-dir grunt)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
