@@ -24,6 +24,7 @@
 !bin/batteryInfo
 !bin/snumber
 !bin/brewrm
+!bin/gmail
 !.scripts/
 !.scripts/macStartup.sh
 !.scripts/geek.sh

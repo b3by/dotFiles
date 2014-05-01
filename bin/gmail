@@ -1,0 +1,44 @@
+#!/bin/bash
+
+USERNAME="b3by.in.th3.sky@gmail.com"
+PASSWORD=`security 2>&1 find-generic-password -g -a gmail | grep password | awk -F '"' '{print $2}'`
+
+EMAIL=`curl -u $USERNAME:$PASSWORD --silent "https://mail.google.com/mail/feed/atom" | tr -d '\n' | awk -F '<entry>' '{for (i=2; i<=NF; i++) {print $i}}' | sed -n "s/<title>\(.*\)<\/title.*name>\(.*\)<\/name>.*/\2 - \1/p"`
+
+NUM=`echo "$EMAIL" | wc -l | awk '{printf $1}'`
+
+if [ "$#" -eq "0" ]; then
+    echo ""
+    echo "$(tput setaf 26)G$(tput setaf 1)o$(tput setaf 3)o$(tput setaf 26)g$(tput setaf 28)l$(tput setaf 1)e M$(tput sgr0)ail terminal checker"
+    echo "----------------------------"
+    
+    if [ -n "$EMAIL" ]; then
+        COLS=`tput cols`
+        SIZE=`expr $COLS - 2`
+        echo "$(tput setaf 1)$NUM$(tput sgr0) new in inbox"
+        echo "----------------------------"
+        
+        IFS=$'\n'
+        for i in $EMAIL
+        do
+            len=${#i}
+            if [ "$len" -gt $SIZE ]; then
+                let "REDUCED = SIZE - 100"
+                echo "$(tput setaf 120)*$(tput sgr0) "${i:0:$SIZE-3}"..."
+            else
+                echo "$(tput setaf 120)*$(tput sgr0) "$i
+            fi
+        done
+    else
+        echo -e "$(tput setaf 120)Congrats, no new mail!$(tput sgr0)"
+    fi
+    echo "----------------------------"
+elif [ "$1" == "--count" ]; then
+    if [ "$EMAIL" == "" ]; then
+        echo "0"
+    else
+        echo $NUM
+    fi
+else
+    echo "Wrong usage."
+fi
