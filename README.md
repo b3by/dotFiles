@@ -11,6 +11,7 @@ This repository contains some dot files I use on my box.
   * `batteryInfo`: information about battery
   * `snumber`: retrieve easly MB serial number
   * `brewrm`: smart brew uninstall procedure
+  * `gmail` : simple gmail terminal checker
 
 * `.scripts/`: some utility scripts
   * `macSetup.sh`: it helps me configuring my mac after a clean install

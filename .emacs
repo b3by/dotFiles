@@ -46,25 +46,6 @@
 ;; plugins path
 ;;(add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/plugins/")
-(add-to-list 'load-path "~/.emacs.d/emms/")
-
-(global-set-key (kbd "<f8>")
-                (lambda ()
-                  (interactive)
-                  (emms-play-directory-tree "./Music/")
-                  (emms-random)))
-
-(global-set-key (kbd "<f9>") 'emms-next)
-
-(global-set-key (kbd "<f7>")
-                (lambda ()
-                  (interactive)
-                  (emms-previous)))
-
-;; emms stuff
-(require 'emms-setup)
-(emms-devel)
-(emms-default-players)
 
 ;; customization from emacs, basically just trusted themes
 (custom-set-variables
@@ -206,16 +187,7 @@
   (setq mouse-sel-mode t)
 )
 
-
 ;; dat mode!
-;;(global-set-key (kbd "<f7>")
-;;                '(lambda()
-;;                   (interactive)
-;;                   (auto-fill-mode 'toogle)
-;;                   (auto-complete-mode 'toogle)
-;;                   (hs-minor-mode 'toogle)
-;;                   (message "dat mode enabled")))
-
 (define-minor-mode dat-mode
   "Mmm...dat mode!"
   :lighter " dat-mode"
