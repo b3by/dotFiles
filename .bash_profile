@@ -9,12 +9,9 @@ fi
 ###########################
 
 MAILADDR="b3by.in.th3.sky@gmail.com"
-PATH="$PATH:~/bin/"
+PATH="$HOME/bin/:$PATH"
 
 ###########################
-
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # web methods from @janmoesen's
 for method in GET HEAD POST PUT DELETE; do
