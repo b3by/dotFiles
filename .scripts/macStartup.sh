@@ -113,4 +113,3 @@ if [ ! -d ~/.oh-my-zsh ]; then
 else
     infoMessage "on-my-zsh already present. Skipping..."
 fi
-
