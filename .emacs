@@ -252,4 +252,8 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
+;; just 2 spaces for java mode
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-basic-offset 2)))
+
 ;;; .emacs ends here
