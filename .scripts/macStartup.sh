@@ -27,17 +27,27 @@ function checkAndInstall () {
 
 # disable dashboard
 # to re-enable, set it to NO
-startTask "Disabling dashboard..."
-defaults write com.apple.dashboard mcx-disabled -boolean YES
-killall Dock
-doneTask
+startTask "Disable dashboard? (y/n)"
+read -r response
+case $response in
+    [yY])
+        defaults write com.apple.dashboard mcx-disabled -boolean YES
+        killall Dock
+        doneTask ;;
+    *)  ;;
+esac
 
 # show path in finder
 # to disable, set it to NO
-startTask "Enabling path in Finder..."
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
-killall Finder
-doneTask
+startTask "Enable path in Finder? (y/n)"
+read -r response
+case $response in
+    [yY])
+        defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+        killall Finder
+        doneTask ;;
+    *) ;;
+esac
 
 # wake deep-sleep up from death
 # to prevent deep-sleep, set it to 3
@@ -51,6 +61,50 @@ startTask "Fixing wake up on lid opening and stuff..."
 sudo pmset -a lidwake 0
 sudo pmset -a acwake 0
 doneTask
+
+startTask "Disabling keyboard backlight when mac is not used for 5 minutes? (y/n)"
+read -r response
+case $response in
+    [yY])
+        defaults write com.apple.BezelServices kDimTime -int 300 ;;
+    *) ;;
+esac
+
+startTask "Requiring password immediately after sleep or screen saver begins? (y/n)"
+read -r response
+case $response in
+    [yY])
+        defaults write com.apple.screensaver askForPassword -int 1
+        defaults write com.apple.screensaver askForPasswordDelay -int 0 ;;
+    *) ;;
+esac
+
+startTask "Show all file extensions by default? (y/n)"
+read -r response
+case $response in
+    [yY])
+        defaults write NSGlobalDomain AppleShowAllExtensions -bool true ;;
+    *) ;;
+esac
+
+
+startTask "Enable snap-to-grid everywhere? (y/n)"
+read -r response
+case $response in
+    [yY])
+        /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+        /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+        /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist ;;
+    *) ;;
+esac
+
+startTask "Prevent Time Machine from prompting to use new hard drives as backup volume? (y/n)"
+read -r response
+case $response in
+    [yY])
+        defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true ;;
+    *) ;;
+esac
 
 # check for brew installation
 if ! type brew > /dev/null; then
