@@ -167,6 +167,9 @@
 ;; what time is it?
 (display-time)
 
+;; javascript indentation level
+(setq js-indent-level 2)
+
 ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed t) ;; don't accelerate scrolling
