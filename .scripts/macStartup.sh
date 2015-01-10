@@ -172,6 +172,7 @@ checkAndInstallFromCask spotify
 checkAndInstallFromCask transmission
 checkAndInstallFromCask dropbox
 checkAndInstallFromCask menumeters
+checkAndInstallFromCask caffeine
 
 # install texlive
 if ! type latex > /dev/null; then
