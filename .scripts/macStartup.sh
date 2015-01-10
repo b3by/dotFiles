@@ -15,7 +15,7 @@ function infoMessage () {
     echo "$(tput setaf 6)*** $1$(tput sgr0)"
 }
 
-function checkAndInstall () {
+function checkAndInstallFromBrew () {
     if [ -z `brew list | grep -w $1` ]; then
         startTask "$1 not installed. Installing..."
         brew install $1 $2 $3 $4
@@ -25,6 +25,25 @@ function checkAndInstall () {
     fi
 }
 
+function checkAndInstallFromCask() {
+    if [ -z `brew cask list | grep -w $1` ]; then
+        startTask "$1 not installed. Installing..."
+        brew cask install $1 $2 $3 $4
+        doneTask
+    else
+        infoMessage "$1 already installed. Skipping..."
+    fi
+}
+
+# change hostname
+startTask "Please specify hostname:"
+read -r response
+if [ -z $response ]; then
+    sudoscutil --set HostName $response
+else
+    infoMessage "Skipping..."
+fi
+
 # disable dashboard
 # to re-enable, set it to NO
 startTask "Disable dashboard? (y/n)"
@@ -32,6 +51,18 @@ read -r response
 case $response in
     [yY])
         defaults write com.apple.dashboard mcx-disabled -boolean YES
+        killall Dock
+        doneTask ;;
+    *)  ;;
+esac
+
+# set the dock size to 32px and magnification size to 64px
+startTask "Set dock size to 32px and magnification size to 64px? (y/n)"
+read -r response
+case $response in
+    [yY])
+        defaults write com.apple.dock tilesize -int 32
+        defaults write com.apple.dock largesize -int 64
         killall Dock
         doneTask ;;
     *)  ;;
@@ -109,28 +140,40 @@ esac
 # check for brew installation
 if ! type brew > /dev/null; then
     startTask "Brew not found. Installing..."
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     doneTask
 else
     infoMessage "Homebrew already installed. Skipping..."
 fi
 
-# some brew installation
-checkAndInstall node
-checkAndInstall wget
-checkAndInstall vnstat
-checkAndInstall clisp
-# checkAndInstall ettercap
-checkAndInstall nmap
-checkAndInstall arp-scan
-checkAndInstall proxychains-ng
-checkAndInstall emacs --cocoa --HEAD
-checkAndInstall tmux
-checkAndInstall reattach-to-user-namespace
-checkAndInstall gti
-checkAndInstall sl
+# some brew installations
+checkAndInstallFromBrew caskroom/cask/brew-cask
+checkAndInstallFromBrew node
+checkAndInstallFromBrew wget
+checkAndInstallFromBrew vnstat
+checkAndInstallFromBrew clisp
+# checkAndInstallFromBrew ettercap
+checkAndInstallFromBrew nmap
+checkAndInstallFromBrew arp-scan
+checkAndInstallFromBrew proxychains-ng
+checkAndInstallFromBrew emacs --cocoa --HEAD
+checkAndInstallFromBrew tmux
+checkAndInstallFromBrew reattach-to-user-namespace
+checkAndInstallFromBrew gti
+checkAndInstallFromBrew sl
 
-# # install texlive
+# some cask installations
+checkAndInstallFromCask google-chrome
+checkAndInstallFromCask emacs
+checkAndInstallFromCask vlc
+checkAndInstallFromCask skype
+checkAndInstallFromCask iterm2
+checkAndInstallFromCask spotify
+checkAndInstallFromCask transmission
+checkAndInstallFromCask dropbox
+checkAndInstallFromCask menumeters
+
+# install texlive
 if ! type latex > /dev/null; then
     startTask "TexLive not installed."
     infoMessage "Downloading MacTex package..."
@@ -141,19 +184,6 @@ if ! type latex > /dev/null; then
     doneTask
 else
     infoMessage "TexLive already installed. Skipping..."
-fi
-
-# install heroku toolbelt
-if ! type heroku > /dev/null; then
-    startTask "Heroku toolbelt not installed."
-    infoMessage "Downloading heroku package..."
-    wget -O heroku-toolbelt.pkg -c "http://assets.heroku.com/heroku-toolbelt/heroku-toolbelt.pkg"
-    startTask "Installing heroku toolbelt..."
-    sudo installer -pkg heroku-toolbelt.pkg -target /
-    rm heroku-toolbelt.pkg
-    doneTask
-else
-    infoMessage "Heroku toolbelt already installed. Skipping..."
 fi
 
 if [ ! -d ~/.oh-my-zsh ]; then
