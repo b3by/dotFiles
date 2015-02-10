@@ -200,6 +200,7 @@
             (define-key map (kbd "<f7>") '(lambda () (message "dat mode enabled")))
               map)
   (auto-fill-mode)
+  (pretty-mode)
   (auto-complete-mode 1)
   (hs-minor-mode))
 
@@ -256,6 +257,7 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
 
 ;; just 2 spaces for java mode
 (add-hook 'java-mode-hook (lambda ()
