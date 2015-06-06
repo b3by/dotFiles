@@ -165,6 +165,7 @@ checkAndInstallFromBrew sl
 # some cask installations
 checkAndInstallFromCask google-chrome
 checkAndInstallFromCask emacs
+checkAndInstallFromCask atom
 checkAndInstallFromCask vlc
 checkAndInstallFromCask skype
 checkAndInstallFromCask iterm2
@@ -173,6 +174,14 @@ checkAndInstallFromCask transmission
 checkAndInstallFromCask dropbox
 checkAndInstallFromCask menumeters
 checkAndInstallFromCask caffeine
+
+# spare stuff
+npm install iojs
+npm install -g grunt-cli
+npm install -g bower
+
+apm install angularjs
+apm install autoclose-html
 
 # install texlive
 if ! type latex > /dev/null; then

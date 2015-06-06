@@ -8,7 +8,7 @@ else
 fi
 ###########################
 
-MAILADDR="b3by.in.th3.sky@gmail.com"
+export MAILADDR="b3by.in.th3.sky@gmail.com"
 PATH="$HOME/bin/:$PATH"
 
 ###########################

@@ -52,6 +52,8 @@ source $(brew --prefix nvm)/nvm.sh
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
 
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home"
+
 # Customize to your needs...
 export PATH=$PATH:/usr/local/heroku/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/texbin:~/bin/
 
