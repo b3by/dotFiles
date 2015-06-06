@@ -39,7 +39,7 @@ function checkAndInstallFromCask() {
 startTask "Please specify hostname:"
 read -r response
 if [ -z $response ]; then
-    sudoscutil --set HostName $response
+    sudo scutil --set HostName $response
 else
     infoMessage "Skipping..."
 fi
@@ -172,6 +172,7 @@ checkAndInstallFromCask iterm2
 checkAndInstallFromCask spotify
 checkAndInstallFromCask transmission
 checkAndInstallFromCask dropbox
+checkAndInstallFromCask google-drive
 checkAndInstallFromCask menumeters
 checkAndInstallFromCask caffeine
 
@@ -205,5 +206,5 @@ if [ ! -d ~/.oh-my-zsh ]; then
     chsh -s /bin/zsh
     doneTask
 else
-    infoMessage "on-my-zsh already present. Skipping..."
+    infoMessage "on-my-zsh already installed. Skipping..."
 fi
