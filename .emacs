@@ -202,6 +202,7 @@
   (auto-fill-mode)
   (pretty-mode)
   (auto-complete-mode 1)
+  (fci-mode)
   (hs-minor-mode))
 
 ;; kill everything left to cursor, no mercy
