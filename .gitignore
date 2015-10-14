@@ -34,3 +34,11 @@
 !.tmux.conf
 ###############
 .Rproj.user
+
+##############
+!.atom
+!.atom/config.cson
+!.atom/init.coffee
+!.atom/keymap.cson
+!.atom/snippets.cson
+!.atom/styles.less
