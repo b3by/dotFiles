@@ -1,0 +1,25 @@
+"*":
+  "exception-reporting":
+    userId: "d1f12d3c-118a-51be-1877-239fcf0d8f62"
+  welcome:
+    showOnStartup: false
+  core: {}
+  editor:
+    invisibles: {}
+    fontSize: 10
+    showIndentGuide: true
+    tabType: "soft"
+  "statwolf-atom-configuration":
+    productionEnvConfig: {}
+    testEnvConfig:
+      host: "http://failover.statwolf.com"
+      port: 80
+      token: "e0365cd512a24c3e8a5dff67d5891dbe"
+  "atom-beautify":
+    _analyticsUserId: "6e1812bb-9648-4363-8e33-a12ef013932a"
+  linter: {}
+  "statwolf-console-plugin": {}
+  "statwolf-installer":
+    runAtStartup: false
+  "imdone-atom": {}
+  tabs: {}
