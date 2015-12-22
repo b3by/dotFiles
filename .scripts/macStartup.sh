@@ -156,7 +156,7 @@ checkAndInstallFromBrew clisp
 checkAndInstallFromBrew nmap
 checkAndInstallFromBrew arp-scan
 checkAndInstallFromBrew proxychains-ng
-checkAndInstallFromBrew emacs --cocoa --HEAD
+checkAndInstallFromBrew emacs --with-cocoa --HEAD
 checkAndInstallFromBrew tmux
 checkAndInstallFromBrew reattach-to-user-namespace
 checkAndInstallFromBrew gti
@@ -175,6 +175,9 @@ checkAndInstallFromCask dropbox
 checkAndInstallFromCask google-drive
 checkAndInstallFromCask menumeters
 checkAndInstallFromCask caffeine
+checkAndInstallFromCask appcleaner
+checkAndInstallFromCask geektool
+checkAndInstallFromCask torbrowser
 
 # spare stuff
 npm install iojs
