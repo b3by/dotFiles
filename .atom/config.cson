@@ -12,11 +12,6 @@
     fontSize: 10
   "atom-beautify":
     _analyticsUserId: "6e1812bb-9648-4363-8e33-a12ef013932a"
-  linter: {}
-  "statwolf-console-plugin":
-    windowHeight: 35
-  "statwolf-installer":
-    runAtStartup: false
   tabs: {}
   "git-diff":
     showIconsInEditorGutter: true
@@ -25,7 +20,6 @@
   "status-bar-clock":
     activateOnStart: "Show on start"
   "one-dark-ui": {}
-  "git-plus": {}
   "atom-clock":
     refreshInterval: 15
   "status-bar": {}
