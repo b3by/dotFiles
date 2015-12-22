@@ -12,3 +12,4 @@
   'ctrl-a left': 'window:focus-pane-on-left'
   'ctrl-a up': 'window:focus-pane-above'
   'ctrl-a down': 'window:focus-pane-below'
+  'ctrl-alt-s': 'slack-chat:toggle'
