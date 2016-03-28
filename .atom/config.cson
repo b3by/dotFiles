@@ -1,28 +1,11 @@
 "*":
-  "exception-reporting":
-    userId: "d1f12d3c-118a-51be-1877-239fcf0d8f62"
-  welcome:
-    showOnStartup: false
   core: {}
   editor:
+    fontSize: 11
     invisibles: {}
     showIndentGuide: true
     tabType: "soft"
-    fontFamily: "Menlo"
-    fontSize: 10
-  "atom-beautify":
-    _analyticsUserId: "6e1812bb-9648-4363-8e33-a12ef013932a"
-  tabs: {}
-  "git-diff":
-    showIconsInEditorGutter: true
-  "file-icons": {}
-  Zen: {}
-  "status-bar-clock":
-    activateOnStart: "Show on start"
-  "one-dark-ui": {}
-  "atom-clock":
-    refreshInterval: 15
-  "status-bar": {}
-  "tree-view": {}
-  "markdown-preview":
-    useGitHubStyle: true
+  "exception-reporting":
+    userId: "f3e3f154-ed30-4d04-70f9-b62efad80aee"
+  welcome:
+    showOnStartup: false

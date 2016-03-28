@@ -161,6 +161,7 @@ checkAndInstallFromBrew tmux
 checkAndInstallFromBrew reattach-to-user-namespace
 checkAndInstallFromBrew gti
 checkAndInstallFromBrew sl
+checkAndInstallFromBrew sysdig
 
 # some cask installations
 checkAndInstallFromCask google-chrome
